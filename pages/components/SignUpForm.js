@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeContext } from '../_app';
 import { Box, Input, Checkbox, Flex } from '@chakra-ui/react';
 
-const StepFive = () => {
+const SignUpForm = ({ register, errors }) => {
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
@@ -36,6 +36,9 @@ const StepFive = () => {
 									<Input
 										mt="5px"
 										placeholder="Email"
+										{...register("email", { 
+											required: true
+										})}
 									/>
 								</Box>
 							</Flex>
@@ -57,6 +60,10 @@ const StepFive = () => {
 									<Input
 										mt="5px"
 										placeholder="Password"
+										type="password"
+										{...register("password", {
+											required: true
+										})}
 									/>
 									<Box>
 									<Box mt="15px">
@@ -79,4 +86,4 @@ const StepFive = () => {
 	);
 }
 
-export default StepFive;
+export default SignUpForm;

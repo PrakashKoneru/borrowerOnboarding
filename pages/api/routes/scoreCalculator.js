@@ -65,7 +65,8 @@ router.post("/scoreCalculator", async (req, res) => {
 				savings,
 			]
 		);
-		return res.json({ apr: '8.0%' });
+
+		return res.json({ calculationId: newScore.rows[0].calculation_id });
 	}	catch (err) {
 		console.error(err.message);
     res.status(500).send("Server error");

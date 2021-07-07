@@ -3,6 +3,7 @@ import { ThemeContext } from '../_app';
 import { Box, Input, Select, Option, Flex } from '@chakra-ui/react';
 
 const StepThree = ({ fieldValues, register, errors }) => {
+	console.log(fieldValues, errors);
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
@@ -38,7 +39,7 @@ const StepThree = ({ fieldValues, register, errors }) => {
 											required: true
 										})}
 									>
-										<option>Please Select</option>
+										<option value="">Please Select</option>
 										<option value="Job">Job</option>
 										<option value="Self Employed">Self Employed</option>
 										<option value="Other">Other</option>
@@ -88,9 +89,21 @@ const StepThree = ({ fieldValues, register, errors }) => {
 										mt="5px"
 										placeholder="Primary Annual Income"
 										{...register("primary_annual_income", {
-											required: true
+											required: true,
+											validate: value => value > 0
 										})}
 									/>
+									<Box
+										mt="5px"
+										color={theme.colors.gray}
+									>
+										{`> $0`}
+									</Box>
+									{errors.primary_annual_income && (
+										<Box color={theme.colors.red}>
+										 Please enter a valid amount.
+										</Box>
+									)}
 								</Box>
 							</Flex>
 							{/* Row 3 */}
@@ -113,7 +126,7 @@ const StepThree = ({ fieldValues, register, errors }) => {
 												required: true
 											})}
 										>
-											<option>Please Select</option>
+											<option value="">Please Select</option>
 											<option value="Yes">Yes</option>
 											<option value="No">No</option>
 										</Select>
@@ -131,9 +144,21 @@ const StepThree = ({ fieldValues, register, errors }) => {
 										mt="5px"
 										placeholder="Income from other sources"
 										{...register("secondary_annual_income", {
-											required: true
+											required: true,
+											validate: value => value > 0
 										})}
 									/>
+									<Box
+										mt="5px"
+										color={theme.colors.gray}
+									>
+										{`> $0`}
+									</Box>
+									{errors.secondary_annual_income && (
+										<Box color={theme.colors.red}>
+										 Please enter a valid amount.
+										</Box>
+									)}
 								</Box>
 							)}
 						</Box>

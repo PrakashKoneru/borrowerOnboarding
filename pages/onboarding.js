@@ -6,16 +6,20 @@ import StepOne from './Components/StepOne';
 import StepTwo from './Components/StepTwo';
 import StepThree from './Components/StepThree';
 import StepFour from './Components/StepFour';
-import StepFive from './Components/StepFive';
+import SignUpForm from './Components/SignUpForm';
 import { useForm } from "react-hook-form";
 import updateAction from "./store/updateAction";
 import { useStateMachine } from "little-state-machine";
-
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const onboarding = (props) => {
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	const [currentStep, setCurrentStep] = useState(0);
+	const [calculationId, setCalculationId] = useState(null);
 	const { actions, state } = useStateMachine({ updateAction });
+	const router = useRouter();
+
 
 	const Steps = [StepOne, StepTwo, StepThree, StepFour]
 	const CurrentComponent = Steps[currentStep];
@@ -31,15 +35,24 @@ const onboarding = (props) => {
 		if(currentStep > 0) setCurrentStep(currentStep - 1);
 	}
 
-	const postData = (data) => {
+	const postScoreData = (data) => {
 		actions.updateAction(data);
 		moveToNextStep();
 		if(currentStep === Steps.length - 1) {
-			console.log('only called on last step');
-			axios.post('http://localhost:5000/scoreCalculator', data);
+			axios.post('http://localhost:5000/scoreCalculator', data)
+			.then(({ data }) => {
+				console.log(data)
+				setCalculationId(data.calculationId);
+			});
 		}
 	}
-
+	const postSignUpData = ({email, password}) => {
+		axios.post('http://localhost:5000/authentication/signUp', { email, password, calculation_id: calculationId })
+		.then(({ data: { pToken } }) => {
+			Cookies.set('pToken', pToken);
+			router.push('/dashboard');
+		});
+	}
 	// console.log(errors, 'errors');
 	return (
 		<ThemeContext.Consumer>
@@ -70,34 +83,55 @@ const onboarding = (props) => {
 							flexDirection="column"
 							justifyContent="center"
 						>
-							<form onSubmit={handleSubmit(postData)}>
-								<CurrentComponent
-									fieldValues={fieldValues}
-									register={register}
-									errors={errors}
-								/>
-								<Box
-									display="flex"
-									justifyContent="space-between"
-									mt="20px"
-								>
-									<Box minWidth="20px">
-										{currentStep > 0 && (
-											<Button
-												onClick={moveToPrevStep}
-											>
-												Prev
-											</Button>
-										)}
-									</Box>
-									<Button
-										type="submit"
-										// onClick={moveToNextStep}
+							{calculationId && (
+								<form onSubmit={handleSubmit(postSignUpData)}>
+									<SignUpForm 
+										fieldValues={fieldValues}
+										register={register}
+										errors={errors}
+									/>
+									<Box
+										display="flex"
+										justifyContent="flex-end"
+										mt="20px"
 									>
-										Next
-									</Button>
-								</Box>
-							</form>
+										<Button
+											type="submit"
+										>
+											Sign Up
+										</Button>
+									</Box>
+								</form>
+							)}
+							{!calculationId && (
+								<form onSubmit={handleSubmit(postScoreData)}>
+									<CurrentComponent
+										fieldValues={fieldValues}
+										register={register}
+										errors={errors}
+									/>
+									<Box
+										display="flex"
+										justifyContent="space-between"
+										mt="20px"
+									>
+										<Box minWidth="20px">
+											{currentStep > 0 && (
+												<Button
+													onClick={moveToPrevStep}
+												>
+													Prev
+												</Button>
+											)}
+										</Box>
+										<Button
+											type="submit"
+										>
+											Next
+										</Button>
+									</Box>
+								</form>
+							)}
 						</Box>
 					</Flex>
 				)
