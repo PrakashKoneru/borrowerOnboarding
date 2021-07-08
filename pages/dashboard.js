@@ -3,6 +3,8 @@ import { ThemeContext } from './_app';
 import { Box, Input, Flex, Container, Select } from '@chakra-ui/react';
 import axios from 'axios';
 import Cookies from "js-cookie";
+import moment from 'moment';
+import ApprovedLoanStatus from './components/loanStatusComponents/approvedLoanStatus';
 
 const Dashboard = () => {
 	const [loans, setLoans] = useState();
@@ -14,50 +16,18 @@ const Dashboard = () => {
 				}
 			}
 		)
-
 		setLoans(data.loans)
 	}, [])
 	
+	if(!loans) return null;
+
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
-				return (
-					<Container
-						padding={{
-							md: "0px 50px",
-							sm: "0px 30px"
-						}}
-						mt="50px"
-					>
-						<Flex
-							flexWrap="wrap"
-							justifyContent="space-between"
-						>
-							<Box
-								w={{ md: "48%", sm: "100%" }}
-								h="300px"
-								border={`1px solid ${theme.colors.gray}`}
-								borderRadius="3px"
-							>
-							</Box>
-							<Box
-								w={{ md: "48%", sm: "100%" }}
-								h="300px"
-								border={`1px solid ${theme.colors.gray}`}
-								borderRadius="3px"
-							>
-							</Box>
-						</Flex>
-						<Box
-							mt="30px"
-							w="100%"
-							h="300px"
-							border={`1px solid ${theme.colors.gray}`}
-							borderRadius="3px"
-						>
-						</Box>
-					</Container>
-				)
+				if(loans.approval_status === 'approved') return (<ApprovedLoanStatus loan={loans} />)
+				// if(loans.approval_status === 'rejected') return <ApprovedLoanStatus loans={loan} />
+				// if(loans.approval_status === 'pending') return <ApprovedLoanStatus loans={loan} />
+				return null;
 			}}
 		</ThemeContext.Consumer>
 	)
