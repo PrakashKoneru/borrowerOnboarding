@@ -5,6 +5,8 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import moment from 'moment';
 import ApprovedLoanStatus from './components/loanStatusComponents/approvedLoanStatus';
+import RejectedLoanStatus from './components/loanStatusComponents/rejectedLoanStatus';
+import PendingLoanStatus from './components/loanStatusComponents/pendingLoanStatus';
 
 const Dashboard = () => {
 	const [loans, setLoans] = useState();
@@ -25,8 +27,8 @@ const Dashboard = () => {
 		<ThemeContext.Consumer>
 			{(theme) => {
 				if(loans.approval_status === 'approved') return (<ApprovedLoanStatus loan={loans} />)
-				// if(loans.approval_status === 'rejected') return <ApprovedLoanStatus loans={loan} />
-				// if(loans.approval_status === 'pending') return <ApprovedLoanStatus loans={loan} />
+				if(loans.approval_status === 'rejected') return <RejectedLoanStatus loan={loans} />
+				if(loans.approval_status === 'pending') return <PendingLoanStatus loan={loans} />
 				return null;
 			}}
 		</ThemeContext.Consumer>
