@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { ThemeContext } from '../_app';
 import { Box, Input, Select, Option, Flex } from '@chakra-ui/react';
 
-const StepThree = ({ fieldValues, register, errors }) => {
-	console.log(fieldValues, errors);
+const Three = ({ fieldValues, register, errors }) => {
+	if(!register) return null;
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
@@ -169,4 +169,4 @@ const StepThree = ({ fieldValues, register, errors }) => {
 	);
 }
 
-export default StepThree;
+export default Three;

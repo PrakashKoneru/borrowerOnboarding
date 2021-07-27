@@ -16,6 +16,6 @@ app.use("/authentication", require("./routes/auth"));
 app.use("/", require("./routes/scoreCalculator"));
 app.use("/", middlewareAuth, require("./routes/dashboard"));
 
-app.listen(5000, () => {
-  console.log(`Server is starting on port 5000`);
+app.listen(5002, () => {
+  console.log(`Server is starting on port 5002`);
 });

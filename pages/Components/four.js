@@ -2,7 +2,8 @@ import React from 'react';
 import { ThemeContext } from '../_app';
 import { Box, Input, Select, Flex } from '@chakra-ui/react';
 
-const StepFour = ({ fieldValues, register, errors }) => {
+const Four = ({ fieldValues, register, errors }) => {
+	if(!register) return null;
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
@@ -116,4 +117,4 @@ const StepFour = ({ fieldValues, register, errors }) => {
 	);
 }
 
-export default StepFour;
+export default Four;

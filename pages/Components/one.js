@@ -2,7 +2,8 @@ import React from 'react';
 import { ThemeContext } from '../_app';
 import { Box, Input, Select, Flex } from '@chakra-ui/react';
 
-const StepOne = ({ register, errors }) => {
+const One = ({ register, errors }) => {
+	if(!register) return null;
 	return (
 		<ThemeContext.Consumer>
 			{(theme) => {
@@ -81,7 +82,7 @@ const StepOne = ({ register, errors }) => {
 	);
 }
 
-export default StepOne;
+export default One;
 
 // return (
 // 	<ThemeContext.Consumer>

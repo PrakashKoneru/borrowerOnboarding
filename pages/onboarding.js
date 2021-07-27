@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Box, Flex, Button } from '@chakra-ui/react';
 import axios from 'axios';
 import { ThemeContext } from './_app';
-import StepOne from './Components/StepOne';
-import StepTwo from './Components/StepTwo';
-import StepThree from './Components/StepThree';
-import StepFour from './Components/StepFour';
-import SignUpForm from './Components/SignUpForm';
+import One from './Components/one';
+import Two from './Components/two';
+import Three from './Components/three';
+import Four from './Components/four';
+import SignUpForm from './Components/signUpForm';
 import { useForm } from "react-hook-form";
 import updateAction from "./store/updateAction";
 import { useStateMachine } from "little-state-machine";
@@ -21,7 +21,7 @@ const onboarding = (props) => {
 	const router = useRouter();
 
 
-	const Steps = [StepOne, StepTwo, StepThree, StepFour]
+	const Steps = [One, Two, Three, Four]
 	const CurrentComponent = Steps[currentStep];
 	const fieldValues = watch();
 
