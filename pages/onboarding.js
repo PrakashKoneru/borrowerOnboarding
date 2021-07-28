@@ -8,10 +8,19 @@ import Three from './Components/three';
 import Four from './Components/four';
 import SignUpForm from './Components/signUpForm';
 import { useForm } from "react-hook-form";
-import updateAction from "./store/updateAction";
 import { useStateMachine } from "little-state-machine";
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+
+function updateAction(state, payload) {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        ...payload
+      }
+    };
+  }
 
 const onboarding = (props) => {
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
