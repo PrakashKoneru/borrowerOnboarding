@@ -6,11 +6,11 @@ import One from './components/one';
 import Two from './components/two';
 import Three from './components/three';
 import Four from './components/four';
-import SignUpForm from './components/signUpForm';
 import { useForm } from "react-hook-form";
 import { useStateMachine } from "little-state-machine";
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import SignUpForm from './components/signUpForm';
 
 function updateAction(state, payload) {
     return {
