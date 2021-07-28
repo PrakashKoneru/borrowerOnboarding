@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Box, Flex, Button } from '@chakra-ui/react';
 import axios from 'axios';
 import { ThemeContext } from './_app';
-import One from './Components/one';
-import Two from './Components/two';
-import Three from './Components/three';
-import Four from './Components/four';
-import SignUpForm from './Components/signUpForm';
+import One from './components/one';
+import Two from './components/two';
+import Three from './components/three';
+import Four from './components/four';
+import SignUpForm from './components/signUpForm';
 import { useForm } from "react-hook-form";
 import { useStateMachine } from "little-state-machine";
 import { useRouter } from 'next/router';
@@ -22,7 +22,7 @@ function updateAction(state, payload) {
     };
   }
 
-  
+
 const onboarding = (props) => {
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	const [currentStep, setCurrentStep] = useState(0);
