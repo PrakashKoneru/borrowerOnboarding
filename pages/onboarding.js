@@ -22,6 +22,7 @@ function updateAction(state, payload) {
     };
   }
 
+  
 const onboarding = (props) => {
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
 	const [currentStep, setCurrentStep] = useState(0);
